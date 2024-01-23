@@ -1,5 +1,5 @@
 import random
-
+# adding a trivial comment
 
 class boardSpot(object):
     value = 0
