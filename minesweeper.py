@@ -8,10 +8,16 @@ class boardSpot(object):
     selected = False
     mine = False
 
-    def __init__(self):
+    def __init__(self,value=0):
         self.selected = False
+        self.value= value
+        self.is_mine = value == -1
 
     def __str__(self):
+        if self.selected:
+            return str(self.value)if self.value != -1 else "X"
+        else:
+            return""
         # criticism: value is a poor uninformative variable name
         return str(boardSpot.value)
 
@@ -172,6 +178,7 @@ class boardClass(object):
         return self.selectableSpots == 0
 
     def nearby_coords_of(self, x, y):
+
         """
         gives the list of all valid nearby coordinates
         :param x: the x component of the coordinate
@@ -184,13 +191,31 @@ class boardClass(object):
         self.assertEqual ( board.nearby_coords_of(0,0) ,
                            [(0,1), (1,0), (1,1)] )
         """
+        nearby = [(-1, -1), (0, 1), (0, 1), (1, 1), (1, 0), (0, -1)]
+        nearby_points = []
+        for x_coord, y_coord in nearby:
+            x_val, y_val = x + x_coord, y + y_coord
+            if 0 <= self.boardSize and 0 <= self.boardSize:
+                nearby_points.append((x_val, y_val))
+        return nearby_points
+
+        coords = set()
+        def is_coord_checked(self, x,y, coords=None):
+            return (x,y) in coords
+
         pass
 
 
 # criticism: the four inputs have no validation at the moment
 def playGame():
-    boardSize = int(input("Choose the width of the board: "))
-    numMines = int(input("Choose the number of mines: "))
+    boardSize = 0
+    #board has to be at least two wide
+    while boardSize < 2:(
+        boardSize) = int(input("Choose the Width of the board:"))
+    numMines = 0
+    # one mine is needed
+    while numMines <=0:
+        numMines =int(input("choose the number of mines:"))
     gameOver = False
     winner = False
 
@@ -199,14 +224,19 @@ def playGame():
     while not gameOver:
         print(Board)
         print("Make your move:")
-        x = int(input("x: "))
-        y = int(input("y: "))
+        x = -1
+        y = -1
+        while x < 0 or x >= boardSize or y < 0 or y >= boardSize:
+            x = int(input("x(0 to {}): ".format(boardSize -1)))
+            y = int(input("y(0 to {}): ".format(boardSize -1)))
+            if x < 0 or x >= boardSize or y < 0 or y >= boardSize:
+                print("Invalid coordinates.Please enter agains.")
         Board.makeMove(x, y)
         gameOver = Board.hitMine(x, y)
         if Board.isWinner() and gameOver == False:
             gameOver = True
             winner = True
-
+        #make sure y and x is in range
     print(Board)
     if winner:
         print("Congratulations, You Win!")
@@ -214,3 +244,10 @@ def playGame():
         print("You hit a mine, Game Over!")
 
 playGame()
+
+
+def \
+        isMine(self):
+    if boardSpot.value == -1:
+        return True
+    return False
