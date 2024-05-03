@@ -199,8 +199,13 @@ def playGame():
     while not gameOver:
         print(Board)
         print("Make your move:")
-        x = int(input("x: "))
-        y = int(input("y: "))
+        x = -1
+        y = -1
+        while x < 0 or x >= boardSize or y < 0 or y >= boardSize:
+            x = int(input("x: "))
+            y = int(input("y: "))
+            if x < 0 or x >= boardSize or y < 0 or y >= boardSize:
+                print("Invalid Spot")
         Board.makeMove(x, y)
         gameOver = Board.hitMine(x, y)
         if Board.isWinner() and gameOver == False:
